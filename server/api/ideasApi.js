@@ -1,27 +1,52 @@
 const express = require('express');
+
 const ideasRouter = express.Router();
-const {getAllFromDatabase} = require('../db');
+const {
+  getAllFromDatabase,
+  addToDatabase,
+  updateInstanceInDatabase,
+  deleteFromDatabasebyId,
+} = require('../db');
+const ideasSchema = require('../schema/ideasSchema');
+const { numberParser, validateID } = require('./middlewareUtils');
+const { validate } = require('../ErrorHandling');
 
-const DB_MODEL = 'ideas'
+const DB_MODEL = 'ideas';
+const NUMBER_TYPE_KEYS = ['numWeeks', 'weeklyRevenue'];
 
-ideasRouter.get('/', (req, res) => {
-    res.send(getAllFromDatabase(DB_MODEL))
-})
+ideasRouter.param('id', validateID(DB_MODEL));
 
-ideasRouter.post('/', (req, res) => {
-    
-})
+ideasRouter.get('/', (_, res) => {
+  res.send(getAllFromDatabase(DB_MODEL));
+});
+
+ideasRouter.post(
+  '/',
+  numberParser(NUMBER_TYPE_KEYS),
+  validate({ body: ideasSchema }),
+  (req, res) => {
+    const newIdea = addToDatabase(DB_MODEL, req.body);
+    res.status(200).send(newIdea);
+  },
+);
 
 ideasRouter.get('/:id', (req, res) => {
-    
-})
+  res.status(200).send(req[DB_MODEL]);
+});
 
-ideasRouter.put('/:id', (req, res) => {
-    
-})
+ideasRouter.put(
+  '/:id',
+  numberParser(NUMBER_TYPE_KEYS),
+  validate({ body: ideasSchema }),
+  (req, res) => {
+    const newIdea = updateInstanceInDatabase(DB_MODEL, req.body);
+    res.status(200).send(newIdea);
+  },
+);
 
 ideasRouter.delete('/:id', (req, res) => {
-    
-})
+  deleteFromDatabasebyId(DB_MODEL, req.id);
+  res.status(204).send();
+});
 
 module.exports = ideasRouter;

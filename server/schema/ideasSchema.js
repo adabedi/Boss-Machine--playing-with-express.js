@@ -1,6 +1,6 @@
-const minionsSchema = {
+const ideasSchema = {
   type: 'object',
-  required: ['name', 'title', 'salary'],
+  required: ['name', 'description'],
   properties: {
     id: {
       type: 'string',
@@ -10,17 +10,17 @@ const minionsSchema = {
       type: 'string',
       minLength: 2,
     },
-    title: {
+    description: {
       type: 'string',
       minLength: 2,
     },
-    salary: {
+    numWeeks: {
       type: 'number',
     },
-    weaknesses: {
-      type: 'string',
+    weeklyRevenue: {
+      type: 'number',
     },
   },
 };
 
-module.exports = minionsSchema;
+module.exports = ideasSchema;

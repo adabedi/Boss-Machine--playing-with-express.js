@@ -1,47 +1,54 @@
 const express = require('express');
-const { ngettext } = require('mocha/lib/utils');
+
 const minionsRouter = express.Router();
 
-const {getAllFromDatabase, addToDatabase, updateInstanceInDatabase, getFromDatabaseById} = require('../db');
-const DB_MODEL = 'minions'
+const {
+  getAllFromDatabase,
+  addToDatabase,
+  updateInstanceInDatabase,
+  deleteFromDatabasebyId,
+} = require('../db');
 
-const {validate} = require('../ErrorHandling')
-const minionsSchema =  require('../schema/minionsSchema')
+const DB_MODEL = 'minions';
+const NUMBER_TYPE_KEYS = ['salary'];
 
-minionsRouter.param('id', (req,res, next, id) => {
-    const exits = getFromDatabaseById(DB_MODEL, req.params.id)
-    if(!exits) {
-        const err = Error('Invalid id!');
-        err.status = 404;
-        return next(err);
-    }
-    req.minion = exits;
-    next()
-})
+const { validate } = require('../ErrorHandling');
+const minionsSchema = require('../schema/minionsSchema');
+const { numberParser, validateID } = require('./middlewareUtils');
 
-minionsRouter.get('/', (req, res) => {
-    res.send(getAllFromDatabase(DB_MODEL))
-})
+minionsRouter.param('id', validateID(DB_MODEL));
 
-minionsRouter.post('/', validate({body: minionsSchema}), (req, res, next) => {
-    const newMiniona = addToDatabase(DB_MODEL,req.body);
+minionsRouter.get('/', (_, res) => {
+  res.send(getAllFromDatabase(DB_MODEL));
+});
+
+minionsRouter.post(
+  '/',
+  numberParser(NUMBER_TYPE_KEYS),
+  validate({ body: minionsSchema }),
+  (req, res) => {
+    const newMiniona = addToDatabase(DB_MODEL, req.body);
     res.status(200).send(newMiniona);
-    next()
-})
+  },
+);
 
 minionsRouter.get('/:id', (req, res) => {
-    res.status(200).send(req.minion);
-})
+  res.status(200).send(req[DB_MODEL]);
+});
 
-minionsRouter.put('/:id', validate({body: minionsSchema}), (req, res, next) => {
-    const newMiniona = updateInstanceInDatabase(DB_MODEL,req.body);
+minionsRouter.put(
+  '/:id',
+  numberParser(NUMBER_TYPE_KEYS),
+  validate({ body: minionsSchema }),
+  (req, res) => {
+    const newMiniona = updateInstanceInDatabase(DB_MODEL, req.body);
     res.status(200).send(newMiniona);
-    next()
-})
+  },
+);
 
 minionsRouter.delete('/:id', (req, res) => {
-    deleteFromDatabasebyId(DB_MODEL, req.body)
-    res.status(204).send();
-})
+  deleteFromDatabasebyId(DB_MODEL, req.id);
+  res.status(204).send();
+});
 
 module.exports = minionsRouter;
