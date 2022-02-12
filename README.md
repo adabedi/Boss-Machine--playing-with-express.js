@@ -13,24 +13,43 @@ The main goal was to train and master [express.js](https://www.npmjs.com/package
 Directory tree (I omited not created by me):
 
 ├── package.json
+
 ├── README.md
+
 ├── server
+
 │   ├── api
+
 │   │   ├── api.js
+
 │   │   ├── ideasApi.js
+
 │   │   ├── meetingsApi.js
+
 │   │   ├── middlewareUtils.js
+
 │   │   ├── minionsApi.js
+
 │   │   └── workApi.js
+
 │   ├── checkMillionDollarIdea.js
+
 │   ├── ErrorHandling.js
+
 │   └── schema
+
 │       ├── ideasSchema.js
+
 │       ├── meetingSchema.js
+
 │       └── minionsSchema.js
+
 ├── server.js
+
 ├── .husky
+
 ├── .prettierrc
+
 ├── .eslintrc.js
 
 
