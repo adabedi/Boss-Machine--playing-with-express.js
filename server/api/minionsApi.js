@@ -28,7 +28,7 @@ minionsRouter.post(
   validate({ body: minionsSchema }),
   (req, res) => {
     const newMiniona = addToDatabase(DB_MODEL, req.body);
-    res.status(200).send(newMiniona);
+    res.status(201).send(newMiniona);
   },
 );
 

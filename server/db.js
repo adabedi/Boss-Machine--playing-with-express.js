@@ -1,5 +1,3 @@
-/* eslint-disable no-plusplus */
-/* eslint-disable no-param-reassign */
 const faker = require('faker');
 
 let minionIdCounter = 1;
@@ -95,7 +93,7 @@ const isValidMinion = (instance) => {
   ) {
     throw new Error("Minion's name, title, and weaknesses must be strings");
   }
-  if (!parseFloat(instance.salary).isNaN() && instance.salary.isFinite()) {
+  if (!isNaN(parseFloat(instance.salary)) && isFinite(instance.salary)) {
     instance.salary = Number(instance.salary);
   } else {
     throw new Error("Minion's salary must be a number.");
@@ -112,14 +110,14 @@ const isValidIdea = (instance) => {
   ) {
     throw new Error("Idea's name and description must be strings");
   }
-  if (!parseFloat(instance.numWeeks).isNaN() && instance.numWeeks.isFinite()) {
+  if (!isNaN(parseFloat(instance.numWeeks)) && isFinite(instance.numWeeks)) {
     instance.numWeeks = Number(instance.numWeeks);
   } else {
     throw new Error("Idea's numWeeks must be a number.");
   }
   if (
-    !parseFloat(instance.weeklyRevenue).isNaN() &&
-    instance.weeklyRevenue.isFinite()
+    !isNaN(parseFloat(instance.weeklyRevenue)) &&
+    isFinite(instance.weeklyRevenue)
   ) {
     instance.weeklyRevenue = Number(instance.weeklyRevenue);
   } else {
@@ -137,7 +135,7 @@ const isValidWork = (instance) => {
   ) {
     throw new Error("Work's title and description must be strings");
   }
-  if (!parseFloat(instance.hours).isNaN() && instance.hours.isFinite()) {
+  if (!isNaN(parseFloat(instance.hours)) && isFinite(instance.hours)) {
     instance.hours = Number(instance.hours);
   } else {
     throw new Error("Work's hours must be a number.");

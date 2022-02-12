@@ -1,6 +1,6 @@
 const ideasSchema = {
   type: 'object',
-  required: ['name', 'description'],
+  required: ['name', 'description', 'weeklyRevenue', 'numWeeks'],
   properties: {
     id: {
       type: 'string',

@@ -4,7 +4,7 @@ const checkNumberType = (_body, keys) => {
   const body = { ..._body };
   keys.forEach((key) => {
     const convertedToNumber = Number(_body[key]);
-    if (!convertedToNumber.isNaN()) {
+    if (!Number.isNaN(convertedToNumber)) {
       body[key] = convertedToNumber;
     }
   });
