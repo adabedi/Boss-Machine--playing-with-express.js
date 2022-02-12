@@ -1,6 +1,0 @@
-{
-  "hooks": {
-    "pre-commit": "echo 'commit event detected'",
-    "pre-commit": "npm run format && npm run lint"
-  }
-}
