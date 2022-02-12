@@ -8,9 +8,15 @@ The project was done to complete a codecademy course and started from the boiler
 
 The main goal was to train and master [express.js](https://www.npmjs.com/package/express). In order to take full advantage of this exercise, I have broadened the scope of the exercise. 
 
+
+## How to start
+- `$ npm install`
+-  `$ npm run start`
+-  now server is running on port http://localhost:4001
+
 ## Implementation Details
 
-Directory tree (I omited not created by me):
+Directory tree (I omitted files not created by me):
 
 ├── package.json
 
