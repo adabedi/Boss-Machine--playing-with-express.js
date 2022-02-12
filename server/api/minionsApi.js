@@ -15,8 +15,11 @@ const NUMBER_TYPE_KEYS = ['salary'];
 const { validate } = require('../ErrorHandling');
 const minionsSchema = require('../schema/minionsSchema');
 const { numberParser, validateID } = require('./middlewareUtils');
+const workRouter = require('./workApi');
 
 minionsRouter.param('id', validateID(DB_MODEL));
+
+minionsRouter.use('/:id/work', workRouter);
 
 minionsRouter.get('/', (_, res) => {
   res.send(getAllFromDatabase(DB_MODEL));

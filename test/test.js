@@ -571,7 +571,7 @@ describe('/api/meetings routes', () => {
   });
 });
 
-xdescribe('BONUS: /api/minions/:minionId/work routes', () => {
+describe('BONUS: /api/minions/:minionId/work routes', () => {
   const fakeDb = require('../server/db.js').db;
 
   describe('GET /api/minions/:minionId/work', () => {
